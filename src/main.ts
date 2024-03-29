@@ -5,6 +5,7 @@ import { Datarespone } from './handle/interceptor';
  
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.setGlobalPrefix('api');
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new Datarespone());
   await app.listen(3000);

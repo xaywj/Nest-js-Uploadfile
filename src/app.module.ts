@@ -15,9 +15,9 @@ import { DataSource } from 'typeorm';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'nest_db',
+      database: 'sabaiydev_db',
       entities: ['dist/**/*.entity.js'], // Adjusted for compiled entities
-      synchronize: false,
+      synchronize: true,
     }),
     UploadModule,
   ],
