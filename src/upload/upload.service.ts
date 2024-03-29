@@ -68,8 +68,13 @@ export class UploadService {
     return { folderName: newFolderName };
   }
 
-  findAll() {
-    return `This action returns all upload`;
+  async findAll(): Promise<Folder[]> {
+    try {
+      const folders = await this.folderRepository.find({ relations: ['files'] });
+      return folders;
+    } catch (error) {
+      throw new BadRequestException(error.message || 'Internal server error.');
+    }
   }
 
   findOne(id: number) {
