@@ -1,4 +1,13 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+} from 'typeorm';
 import { File } from './file.entity';
 
 @Entity()
@@ -6,13 +15,11 @@ export class Folder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  parent_id: number;
-
-  @ManyToOne(() => Folder, folder => folder.children)
+  @ManyToOne(() => Folder, (folder) => folder.children)
+  @JoinColumn({ name: 'parent_id' }) // Join column with name 'parent_id'
   parent: Folder;
 
-  @OneToMany(() => Folder, folder => folder.parent)
+  @OneToMany(() => Folder, (folder) => folder.parent)
   children: Folder[];
 
   @Column()
@@ -24,6 +31,10 @@ export class Folder {
   @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP' })
+  @UpdateDateColumn({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    onUpdate: 'CURRENT_TIMESTAMP',
+  })
   updated_at: Date;
 }

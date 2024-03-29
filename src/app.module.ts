@@ -4,11 +4,11 @@ import { AppService } from './app.service';
 import { UploadModule } from './upload/upload.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { ConfigModule } from '@nestjs/config';
+// import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    // ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -17,7 +17,7 @@ import { ConfigModule } from '@nestjs/config';
       password: '',
       database: 'nest_db',
       entities: ['dist/**/*.entity.js'], // Adjusted for compiled entities
-      synchronize: true,
+      synchronize: false,
     }),
     UploadModule,
   ],
